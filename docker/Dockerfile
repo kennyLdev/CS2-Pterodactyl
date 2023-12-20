@@ -14,7 +14,7 @@ WORKDIR     /home/container
 # To-Do: If CS2 requires Wine, the following lines will need to be uncommented
 # RUN         apt update
 # RUN         apt install -y wine wine64 libwine && apt clean
-RUN apt-update
+RUN apt update
 RUN apt install -y librdkafka-dev
 # EP
 COPY        ./docker/entrypoint.sh /entrypoint.sh
