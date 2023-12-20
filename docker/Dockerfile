@@ -7,6 +7,8 @@ LABEL       org.opencontainers.image.source="https://github.com/1zc/cs2-pterodac
 # Prep OS
 RUN         mkdir -p /etc/sudoers.d && echo "%sudo ALL=(ALL:ALL) NOPASSWD: ALL" > /etc/sudoers.d/flatdeb && chmod 0440 /etc/sudoers.d/flatdeb
 ENV         DEBIAN_FRONTEND=noninteractive
+RUN apt update
+RUN apt install -y librdkafka-dev
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
@@ -14,8 +16,7 @@ WORKDIR     /home/container
 # To-Do: If CS2 requires Wine, the following lines will need to be uncommented
 # RUN         apt update
 # RUN         apt install -y wine wine64 libwine && apt clean
-RUN apt update
-RUN apt install -y librdkafka-dev
+
 # EP
 COPY        ./docker/entrypoint.sh /entrypoint.sh
 CMD         [ "/bin/bash", "/entrypoint.sh" ]
